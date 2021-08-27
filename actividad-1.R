@@ -12,6 +12,8 @@ gc()
 
 library(ggplot2)
 library(dplyr)
+library(lubridate)
+library(tidyverse)
 
 archivo <- "llamados-atendidos-abuso-sexual-2021.csv"
 path_completo <- paste(getwd(),  "/datasets/", archivo, sep="")
@@ -44,3 +46,28 @@ g1 <- ggplot(ataquesFechas, aes(x = fecha, y = cant)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 g1
 
+# Mapa de calor de número de casos por mes calendario
+totales <- ataquesFechas %>%
+  mutate(wday = str_sub(weekdays(fecha), 1, 3),
+         month_day = day(fecha),
+         month = month(fecha),
+         week_increment = ifelse(month_day == 1 | wday == "Sun", 1, 0)) %>%
+  group_by(month) %>%
+  mutate(week = cumsum(week_increment),
+         text_month = months(fecha)) %>%
+  ungroup()
+
+vec_dias <- c("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
+totales$wday <- factor(totales$wday, levels = vec_dias)
+month_vec <- c("January", "February", "March", "April", "May", "June",
+               "July", "August", "September", "October", "November", "December")
+totales$text_month <- factor(totales$text_month, levels = month_vec)
+
+calendario <- ggplot(totales, aes(x = wday, y = week)) +
+  geom_tile(aes(fill = cant), colour = "white") +
+  facet_wrap(~text_month, scales = "free") +
+  scale_y_reverse() + 
+  theme_minimal() +
+  #scale_fill_viridis_c(labels = "dollar") +
+  scale_x_discrete(position = "top") 
+calendario
