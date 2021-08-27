@@ -1,13 +1,12 @@
 # Explotación de Datos
 
 Repositorio para la materia Explotación de datos de la Universidad Nacional del Oeste
-2021-2C
 
-## Descripción
+### Descripción
 
-Éste repositorio contiene código de las prácticas realizadas en la materia Explotación de Datos de la Universidad Nacional del Oeste.
+Éste repositorio contiene código de las prácticas realizadas en la materia Explotación de Datos de la Universidad Nacional del Oeste - 2do cuatrimestre - 2021.
 
-## Uso
+### Uso
 
 *Al descargar este repositorio, crear un nuevo proyecto en RStudio.*
 
