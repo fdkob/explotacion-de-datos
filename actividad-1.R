@@ -69,5 +69,8 @@ calendario <- ggplot(totales, aes(x = wday, y = week)) +
   scale_y_reverse() + 
   theme_minimal() +
   #scale_fill_viridis_c(labels = "dollar") +
+  #scale_fill_viridis_c() +
+  #scale_fill_gradient() +
+  scale_fill_distiller() +
   scale_x_discrete(position = "top") 
 calendario
